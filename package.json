@@ -1,0 +1,33 @@
+{
+  "name": "@sorobench/monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Performance Benchmarking Suite for Soroban Smart Contracts",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "build:cli": "turbo run build --filter=@sorobench/cli",
+    "build:runner": "turbo run build --filter=@sorobench/runner",
+    "build:flamegraph": "turbo run build --filter=@sorobench/flamegraph",
+    "build:storage": "turbo run build --filter=@sorobench/storage",
+    "build:dashboard": "turbo run build --filter=@sorobench/dashboard",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "dev:dashboard": "turbo run dev --filter=@sorobench/dashboard",
+    "clean": "turbo run clean",
+    "format": "prettier --write 'packages/*/src/**/*.ts'"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0",
+    "@types/node": "^20.11.0",
+    "prettier": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "packageManager": "npm@10.8.0"
+}

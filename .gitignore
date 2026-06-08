@@ -1,0 +1,8 @@
+node_modules/
+dist/
+target/
+.sorobench/history.db
+bench-reports/
+.env
+*.log
+.turbo
