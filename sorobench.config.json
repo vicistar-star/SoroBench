@@ -1,0 +1,44 @@
+{
+  "project": "My Token Protocol",
+  "contracts": [
+    {
+      "name": "token",
+      "wasm": "./target/wasm32-unknown-unknown/release/token.wasm",
+      "source": "./contracts/token/src"
+    },
+    {
+      "name": "governance",
+      "wasm": "./target/wasm32-unknown-unknown/release/governance.wasm"
+    }
+  ],
+  "runner": {
+    "warmupRuns": 3,
+    "samplingRuns": 10,
+    "network": "testnet",
+    "rpcUrl": "https://soroban-testnet.stellar.org"
+  },
+  "thresholds": {
+    "global": {
+      "maxInstructions": 50000000,
+      "maxFeeXlm": 0.05
+    },
+    "functions": {
+      "transfer": {
+        "maxInstructions": 5000000,
+        "maxFeeXlm": 0.005
+      },
+      "swap": {
+        "maxInstructions": 20000000
+      }
+    }
+  },
+  "baseline": {
+    "store": ".sorobench/baseline.json",
+    "regressionThresholdPct": 10
+  },
+  "output": {
+    "formats": ["terminal", "html", "json"],
+    "outputDir": "./bench-reports",
+    "flameGraph": true
+  }
+}
