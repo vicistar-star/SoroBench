@@ -6,3 +6,4 @@ bench-reports/
 .env
 *.log
 .turbo
+PLAN.md
