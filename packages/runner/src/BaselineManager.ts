@@ -8,7 +8,7 @@ import type {
   ComparisonRow,
   BenchContractResult,
   BenchFunctionResult,
-} from "./types";
+} from "./types.js";
 
 export class BaselineManager {
   private config: BaselineConfig;

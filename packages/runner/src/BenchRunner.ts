@@ -1,8 +1,8 @@
 import { Keypair, Networks } from "@stellar/stellar-sdk";
-import { SorobanExecutor } from "./SorobanExecutor";
-import { Sampler } from "./Sampler";
-import { ThresholdEvaluator } from "./ThresholdEvaluator";
-import { BaselineManager } from "./BaselineManager";
+import { SorobanExecutor } from "./SorobanExecutor.js";
+import { Sampler } from "./Sampler.js";
+import { ThresholdEvaluator } from "./ThresholdEvaluator.js";
+import { BaselineManager } from "./BaselineManager.js";
 import type {
   SoroBenchConfig,
   BenchRunResult,
@@ -10,7 +10,7 @@ import type {
   BenchFunctionResult,
   BenchSuite,
   RunnerConfig,
-} from "./types";
+} from "./types.js";
 
 export interface BenchTask {
   contractId: string;

@@ -1,5 +1,5 @@
-import type { BenchFunctionResult } from "./types";
-import type { SimulationResult } from "./SorobanExecutor";
+import type { BenchFunctionResult } from "./types.js";
+import type { SimulationResult } from "./SorobanExecutor.js";
 
 const STROOPS_PER_XLM = 10_000_000;
 const MAX_INSTRUCTIONS = 100_000_000;

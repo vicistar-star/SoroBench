@@ -1,6 +1,6 @@
-import type { BenchFunctionResult } from "./types";
-import type { SimulationResult, SorobanExecutor } from "./SorobanExecutor";
-import { MetricsCollector } from "./MetricsCollector";
+import type { BenchFunctionResult } from "./types.js";
+import type { SimulationResult, SorobanExecutor } from "./SorobanExecutor.js";
+import { MetricsCollector } from "./MetricsCollector.js";
 
 export class Sampler {
   private warmupRuns: number;

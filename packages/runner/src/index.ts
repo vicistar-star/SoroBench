@@ -1,11 +1,11 @@
 export const VERSION = "0.1.0";
 
-export * from "./types";
-export { SorobanExecutor } from "./SorobanExecutor";
-export type { SimulationResult } from "./SorobanExecutor";
-export { MetricsCollector } from "./MetricsCollector";
-export { Sampler } from "./Sampler";
-export { BaselineManager } from "./BaselineManager";
-export { ThresholdEvaluator } from "./ThresholdEvaluator";
-export { BenchRunner } from "./BenchRunner";
-export type { BenchTask } from "./BenchRunner";
+export * from "./types.js";
+export { SorobanExecutor } from "./SorobanExecutor.js";
+export type { SimulationResult } from "./SorobanExecutor.js";
+export { MetricsCollector } from "./MetricsCollector.js";
+export { Sampler } from "./Sampler.js";
+export { BaselineManager } from "./BaselineManager.js";
+export { ThresholdEvaluator } from "./ThresholdEvaluator.js";
+export { BenchRunner } from "./BenchRunner.js";
+export type { BenchTask } from "./BenchRunner.js";

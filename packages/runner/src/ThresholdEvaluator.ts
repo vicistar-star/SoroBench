@@ -3,7 +3,7 @@ import type {
   BenchFunctionResult,
   BenchContractResult,
   RegressionResult,
-} from "./types";
+} from "./types.js";
 
 export class ThresholdEvaluator {
   private thresholds: ThresholdsConfig;
