@@ -16,11 +16,13 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@sorobench/runner": "*"
+    "@sorobench/runner": "*",
+    "better-sqlite3": "^11.0.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0",
     "@types/node": "^20.11.0",
+    "@types/better-sqlite3": "^7.6.8",
     "vitest": "^1.6.0"
   },
   "engines": {
