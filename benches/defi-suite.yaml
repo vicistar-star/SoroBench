@@ -1,0 +1,60 @@
+# benches/defi-suite.yaml
+name: DeFi Protocol Suite
+contracts:
+  - id: amm
+    wasm: ./target/wasm32-unknown-unknown/release/amm.wasm
+  - id: token
+    wasm: ./target/wasm32-unknown-unknown/release/token.wasm
+  - id: governance
+    wasm: ./target/wasm32-unknown-unknown/release/governance.wasm
+
+setup:
+  accounts: &shared_accounts
+    - id: provider
+      initial_balance: 10000000000
+    - id: swapper
+      initial_balance: 1000000000
+    - id: voter
+      initial_balance: 1000000
+
+benchmarks:
+  # AMM Benchmarks
+  - name: AMM — Add Liquidity
+    contract: amm
+    function: add_liquidity
+    args:
+      provider: provider
+      amount_a: 1000000
+      amount_b: 1000000
+
+  - name: AMM — Swap (Parameterized)
+    contract: amm
+    function: swap
+    parameterize:
+      amount: [1000, 10000, 100000]
+      path_length: [1, 2, 3]
+
+  # Token Benchmarks
+  - name: Token — Batch Transfer
+    contract: token
+    function: batch_transfer
+    args:
+      from: provider
+      recipients: [swapper, voter]
+      amount: 500
+
+  # Governance Benchmarks
+  - name: Governance — Propose
+    contract: governance
+    function: propose
+    args:
+      proposer: voter
+      description: "Increase fee share"
+
+  - name: Governance — Vote
+    contract: governance
+    function: vote
+    args:
+      voter: voter
+      proposal_id: 1
+      support: true
