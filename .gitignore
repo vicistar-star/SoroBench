@@ -7,3 +7,4 @@ bench-reports/
 *.log
 .turbo
 PLAN.md
+*.tsbuildinfo
