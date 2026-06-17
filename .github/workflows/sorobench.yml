@@ -1,0 +1,41 @@
+name: SoroBench Performance Check
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Rust & Wasm target
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Build Contracts
+        run: cargo build --target wasm32-unknown-unknown --release
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install SoroBench CLI
+        run: npm install -g @sorobench/cli
+
+      - name: Run Benchmarks & Compare
+        run: |
+          sorobench run --suite ./benches/token-suite.yaml --save
+          sorobench regression --base main --head ${{ github.sha }} --format github-comment > regression_report.md
+        env:
+          STELLAR_SECRET_KEY: ${{ secrets.STELLAR_SECRET_KEY }}
+
+      - name: Post PR Comment
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          filePath: regression_report.md
