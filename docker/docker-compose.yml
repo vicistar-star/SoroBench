@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  sorobench:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ..:/app
+      - /app/node_modules
+      - /app/packages/rust-harness/target
+    environment:
+      - STELLAR_SECRET_KEY=${STELLAR_SECRET_KEY}
+      - DATABASE_URL=postgresql://sorobench:sorobench@postgres:5432/sorobench
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=sorobench
+      - POSTGRES_PASSWORD=sorobench
+      - POSTGRES_DB=sorobench
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
