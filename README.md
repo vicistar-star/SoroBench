@@ -39,6 +39,7 @@
 - [CI/CD Integration](#-cicd-integration)
 - [Project Structure](#-project-structure)
 - [Contributing](#-contributing)
+- [Security](#-security)
 - [Roadmap](#-roadmap)
 - [License](#-license)
 
@@ -48,16 +49,16 @@
 
 Soroban's resource model is unique — every contract invocation is priced across multiple dimensions simultaneously: CPU instructions, memory bytes, ledger reads, ledger writes, event bytes, and transaction size. Optimizing for one can inadvertently inflate another. Without dedicated tooling, teams fly blind.
 
-| Problem | Without SoroBench | With SoroBench |
-|---|---|---|
-| Instruction count visibility | Only visible post-simulation | Measured per-function, per-input |
-| Fee estimation accuracy | Rough guesses | Precise, reproducible measurements |
-| Performance regressions | Caught in production | Caught on PR, before merge |
-| Cross-function comparison | Manual, tedious | Automated suite with ranked output |
-| Budget headroom tracking | Unknown | Visualized as % of Soroban limits |
-| Historical trends | No baseline | Git-tracked benchmark history |
-| Input sensitivity analysis | Untested | Parameterized benchmarks with ranges |
-| Team performance standards | Informal | Enforced via configurable thresholds |
+| Problem                      | Without SoroBench            | With SoroBench                       |
+| ---------------------------- | ---------------------------- | ------------------------------------ |
+| Instruction count visibility | Only visible post-simulation | Measured per-function, per-input     |
+| Fee estimation accuracy      | Rough guesses                | Precise, reproducible measurements   |
+| Performance regressions      | Caught in production         | Caught on PR, before merge           |
+| Cross-function comparison    | Manual, tedious              | Automated suite with ranked output   |
+| Budget headroom tracking     | Unknown                      | Visualized as % of Soroban limits    |
+| Historical trends            | No baseline                  | Git-tracked benchmark history        |
+| Input sensitivity analysis   | Untested                     | Parameterized benchmarks with ranges |
+| Team performance standards   | Informal                     | Enforced via configurable thresholds |
 
 SoroBench gives your team **numbers, not feelings** — every optimization decision backed by reproducible data.
 
@@ -66,6 +67,7 @@ SoroBench gives your team **numbers, not feelings** — every optimization decis
 ## ✨ Key Features
 
 ### ⚡ Deep Instruction Profiling
+
 - **Per-function instruction counts** — measure every exported function independently
 - **Input parameterization** — benchmark across data size ranges (e.g. 1, 10, 100, 1000 items) to understand scaling behavior
 - **Hot path identification** — pinpoint which internal functions consume the most instructions
@@ -73,6 +75,7 @@ SoroBench gives your team **numbers, not feelings** — every optimization decis
 - **Comparative benchmarking** — run two contract versions side by side and diff the results
 
 ### 💰 Fee Profiling
+
 - **Full resource fee breakdown** — CPU instructions, read bytes, write bytes, event bytes, tx size, each priced separately
 - **Base fee + resource fee decomposition** — understand exactly what you're paying for
 - **Fee scaling charts** — visualize how fees grow with input size
@@ -80,6 +83,7 @@ SoroBench gives your team **numbers, not feelings** — every optimization decis
 - **Fee budget allocation** — see how each function consumes your transaction fee budget
 
 ### 📊 Reporting & Visualization
+
 - **Terminal report** — color-coded, ranked output with budget utilization bars
 - **HTML report** — rich, self-contained report with charts and sortable tables
 - **JSON output** — machine-readable results for downstream tooling
@@ -87,12 +91,14 @@ SoroBench gives your team **numbers, not feelings** — every optimization decis
 - **Trend charts** — historical performance graphs across git commits
 
 ### 🔔 Regression Detection
+
 - **Baseline comparison** — compare against a stored baseline and fail on regressions
 - **Configurable thresholds** — set per-function or global instruction/fee budgets
 - **PR annotations** — post benchmark diffs directly to GitHub/GitLab pull requests
 - **Slack / webhook alerts** — notify your team when benchmarks exceed thresholds
 
 ### 🏢 Enterprise Features
+
 - **Team baselines** — shared benchmark baselines stored and versioned per workspace
 - **Historical dashboard** — web UI tracking performance over time across the whole team
 - **Multi-contract suite** — benchmark an entire protocol in one run
@@ -149,20 +155,20 @@ SoroBench gives your team **numbers, not feelings** — every optimization decis
 
 ## 🛠 Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Contract Execution | Soroban host environment (`soroban-env-host`), Soroban RPC |
-| Rust Harness | Custom `#[bench]` macro, `sorobench` crate |
-| Instruction Metering | `soroban-env-host` budget metering API |
-| CLI | Node.js, TypeScript, Commander.js |
-| TypeScript Runner | `@stellar/stellar-sdk`, `@sorobench/runner` |
-| Reporting | Terminal: `ink` + `chalk`; HTML: self-contained static report |
-| Flame Graphs | SVG generation via `inferno` (adapted for Soroban call traces) |
-| Charts | `chart.js` (embedded in HTML reports) |
-| Database | SQLite (local history), PostgreSQL (team/enterprise) |
-| Web Dashboard | React 18, Tailwind CSS, Recharts |
-| CI/CD | GitHub Actions, GitLab CI |
-| Package | npm (`@sorobench/cli`), crates.io (`sorobench`) |
+| Layer                | Technology                                                     |
+| -------------------- | -------------------------------------------------------------- |
+| Contract Execution   | Soroban host environment (`soroban-env-host`), Soroban RPC     |
+| Rust Harness         | Custom `#[bench]` macro, `sorobench` crate                     |
+| Instruction Metering | `soroban-env-host` budget metering API                         |
+| CLI                  | Node.js, TypeScript, Commander.js                              |
+| TypeScript Runner    | `@stellar/stellar-sdk`, `@sorobench/runner`                    |
+| Reporting            | Terminal: `ink` + `chalk`; HTML: self-contained static report  |
+| Flame Graphs         | SVG generation via `inferno` (adapted for Soroban call traces) |
+| Charts               | `chart.js` (embedded in HTML reports)                          |
+| Database             | SQLite (local history), PostgreSQL (team/enterprise)           |
+| Web Dashboard        | React 18, Tailwind CSS, Recharts                               |
+| CI/CD                | GitHub Actions, GitLab CI                                      |
+| Package              | npm (`@sorobench/cli`), crates.io (`sorobench`)                |
 
 ---
 
@@ -322,7 +328,7 @@ Output shows how instructions scale with input size:
   amount=100,000     →   4,219,441 instructions  (0.00300 XLM)
   amount=1,000,000   →   4,221,009 instructions  (0.00300 XLM)
 
-  Verdict: ✅ O(1) — instruction count is constant w.r.t. amount value. 
+  Verdict: ✅ O(1) — instruction count is constant w.r.t. amount value.
 ```
 
 #### Compare two contract builds
@@ -521,6 +527,7 @@ sorobench dashboard
 ```
 
 Dashboard tabs:
+
 - **Overview** — latest benchmark run summary across all contracts
 - **Function Explorer** — drill into any function's full metric breakdown
 - **Trend Charts** — instruction count and fee history over time (per git commit)
@@ -536,42 +543,47 @@ Dashboard tabs:
 SoroBench measures and reports the following for every benchmark:
 
 ### Instruction Metrics
-| Metric | Description |
-|---|---|
-| `instructions` | Total CPU instructions consumed |
-| `instructions_pct` | % of Soroban max instruction budget (100M) |
-| `instructions_p50` | Median across sampling runs |
-| `instructions_p95` | 95th percentile (worst-case indicator) |
+
+| Metric                | Description                                |
+| --------------------- | ------------------------------------------ |
+| `instructions`        | Total CPU instructions consumed            |
+| `instructions_pct`    | % of Soroban max instruction budget (100M) |
+| `instructions_p50`    | Median across sampling runs                |
+| `instructions_p95`    | 95th percentile (worst-case indicator)     |
 | `instructions_stddev` | Standard deviation (consistency indicator) |
 
 ### Memory Metrics
-| Metric | Description |
-|---|---|
+
+| Metric      | Description                             |
+| ----------- | --------------------------------------- |
 | `mem_bytes` | Total memory allocated during execution |
-| `mem_pct` | % of Soroban max memory budget (40MB) |
+| `mem_pct`   | % of Soroban max memory budget (40MB)   |
 
 ### Ledger I/O Metrics
-| Metric | Description |
-|---|---|
-| `read_entries` | Number of ledger entries read |
-| `read_bytes` | Total bytes read from ledger |
+
+| Metric          | Description                      |
+| --------------- | -------------------------------- |
+| `read_entries`  | Number of ledger entries read    |
+| `read_bytes`    | Total bytes read from ledger     |
 | `write_entries` | Number of ledger entries written |
-| `write_bytes` | Total bytes written to ledger |
+| `write_bytes`   | Total bytes written to ledger    |
 
 ### Fee Metrics
-| Metric | Description |
-|---|---|
-| `fee_total_xlm` | Total estimated fee in XLM |
-| `fee_cpu_xlm` | CPU instruction component of fee |
-| `fee_read_xlm` | Ledger read component of fee |
-| `fee_write_xlm` | Ledger write component of fee |
-| `fee_event_xlm` | Event bytes component of fee |
+
+| Metric            | Description                       |
+| ----------------- | --------------------------------- |
+| `fee_total_xlm`   | Total estimated fee in XLM        |
+| `fee_cpu_xlm`     | CPU instruction component of fee  |
+| `fee_read_xlm`    | Ledger read component of fee      |
+| `fee_write_xlm`   | Ledger write component of fee     |
+| `fee_event_xlm`   | Event bytes component of fee      |
 | `fee_tx_size_xlm` | Transaction size component of fee |
 
 ### Event Metrics
-| Metric | Description |
-|---|---|
-| `event_count` | Number of events emitted |
+
+| Metric        | Description               |
+| ------------- | ------------------------- |
+| `event_count` | Number of events emitted  |
 | `event_bytes` | Total bytes of event data |
 
 ---
@@ -828,7 +840,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # needed for git history comparison
+          fetch-depth: 0 # needed for git history comparison
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -1023,14 +1035,21 @@ sorobench/
 
 ---
 
+## 🗺 Roadmap
+
+- [ ] **v0.2.0**: Advanced Flame Graphs with per-instruction gas cost visualization
+- [ ] **v0.3.0**: Integration with Stellar RPC for live mainnet fee projections
+- [ ] **v0.4.0**: Multi-contract cross-invocation profiling
+- [ ] **v1.0.0**: Stable release with full CI/CD integration suites
+
 ## 🤝 Contributing
 
 We welcome contributions from the Stellar developer community!
 
 ```bash
 # Fork and clone
-git clone https://github.com/your-org/sorobench.git
-cd sorobench
+git clone https://github.com/vicistar-star/SoroBench.git
+cd SoroBench
 
 # Install Node dependencies
 npm install
@@ -1047,6 +1066,7 @@ npm run dev:dashboard
 ```
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for our code of conduct and pull request process. We especially welcome:
+
 - New output format targets (JUnit XML, CTRF, etc.)
 - Additional Soroban metric dimensions as the protocol evolves
 - Rust harness ergonomics improvements
@@ -1054,6 +1074,9 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for our code of conduct and pull 
 
 ---
 
+## 🔒 Security
+
+Please refer to our [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
 
 ## 📄 License
 
@@ -1074,5 +1097,5 @@ SoroBench is released under the [MIT License](LICENSE).
   Built with ❤️ for the Stellar ecosystem<br/>
   <a href="https://soroban.stellar.org">Soroban Docs</a> ·
   <a href="https://discord.gg/stellar">Stellar Discord</a> ·
-  <a href="https://github.com/your-org/sorobench/issues">Report an Issue</a>
+  <a href="https://github.com/vicistar-star/SoroBench/issues">Report an Issue</a>
 </p>
